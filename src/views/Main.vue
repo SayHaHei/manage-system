@@ -4,7 +4,9 @@
       <common-aside></common-aside>
     </el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>
+        <common-header></common-header>
+      </el-header>
       <el-main>Main</el-main>
     </el-container>
   </el-container>
@@ -12,9 +14,11 @@
 
 <script>
 import CommonAside from "@/components/CommonAside.vue";
+import CommonHeader from "@/components/CommonHeader.vue";
 export default {
   components: {
-    CommonAside
+    CommonAside,
+    CommonHeader
   }
 };
 </script>
@@ -22,5 +26,8 @@ export default {
 <style lang="less" scoped>
 .el-container {
   height: 100vh;
+}
+.el-header {
+  background-color: #333;
 }
 </style>

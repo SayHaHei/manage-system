@@ -11,6 +11,7 @@
       :index="item.path"
       v-for="(item, key) in noChildren"
       :key="'menu' + key"
+      @click="clickMenu(item)"
     >
       <i :class="item.icon"></i>
       <span slot="title">{{ item.label }}</span>
@@ -88,6 +89,11 @@ export default {
     },
     noChildren() {
       return this.asideMenu.filter(item => !item.children);
+    }
+  },
+  methods: {
+    clickMenu(item) {
+      console.log("click" + "   " + item);
     }
   }
 };

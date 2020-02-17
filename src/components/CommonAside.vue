@@ -5,8 +5,10 @@
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
+    :collapse="isCollapse"
   >
-    <h3>小滴课堂后台管理系统</h3>
+    <h3 v-if="!isCollapse">小滴课堂后台管理系统</h3>
+    <h3 v-if="isCollapse">小滴</h3>
     <el-menu-item
       :index="item.path"
       v-for="(item, key) in noChildren"
@@ -30,6 +32,7 @@
           :index="subItem.path"
           v-for="(subItem, subIndex) in item.children"
           :key="'sub' + subIndex"
+          @click="clickMenu(subItem)"
         >
           <i :class="subItem.icon"></i>
           <span>{{ subItem.label }}</span>
@@ -89,11 +92,14 @@ export default {
     },
     noChildren() {
       return this.asideMenu.filter(item => !item.children);
+    },
+    isCollapse() {
+      return this.$store.state.tab.isCollapse;
     }
   },
   methods: {
     clickMenu(item) {
-      console.log("click" + "   " + item);
+      this.$store.commit("clickMenu", item);
     }
   }
 };
@@ -108,7 +114,8 @@ export default {
     line-height: 48px;
   }
 }
-.el-menu-vertical-demo {
+.el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
+  min-height: 400px;
 }
 </style>

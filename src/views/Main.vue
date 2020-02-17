@@ -30,4 +30,7 @@ export default {
 .el-header {
   background-color: #333;
 }
+.el-menu {
+  border: 0;
+}
 </style>

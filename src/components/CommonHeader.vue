@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="l-content">
-      <el-button icon="el-icon-menu" @click="collapse"></el-button>
+      <el-button icon="el-icon-menu" @click="collapse" size="mini"></el-button>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item

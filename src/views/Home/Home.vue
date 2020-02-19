@@ -48,7 +48,7 @@
         </el-card>
       </div>
       <el-card shadow="hover">
-        sdfsdf
+        <echart style="height: 280px" :chartData="echartData.order"></echart>
       </el-card>
       <div class="graph">
         graph
@@ -58,7 +58,12 @@
 </template>
 
 <script>
+import Echart from "../../components/Echart.vue";
+
 export default {
+  components: {
+    Echart
+  },
   data() {
     return {
       userImg: require("../../assets/images/user.png"),
@@ -106,7 +111,20 @@ export default {
         monthBuy: "本月购买",
         totalBuy: "总购买"
       },
-      tableData: []
+      tableData: [],
+      echartData: {
+        order: {
+          xData: [],
+          series: []
+        },
+        user: {
+          xData: [],
+          series: []
+        },
+        video: {
+          series: []
+        }
+      }
     };
   },
   methods: {
@@ -118,15 +136,50 @@ export default {
       const formatMonth = month < 10 ? `0${month}` : month;
       const formatDay = day < 10 ? `0${day}` : day;
       return `${year}-${formatMonth}-${formatDay}`;
+    },
+    getTableData() {
+      this.$http.get("/home/getData").then(res => {
+        res = res.data;
+        /* 表格 */
+        this.tableData = res.data.tableData;
+        /* 折线图 */
+        // 订单折线图
+        const order = res.data.orderData;
+        this.echartData.order.xData = order.date;
+        // 第一步取出series中的name部分——键名
+        let keyArray = Object.keys(order.data[0]);
+        // 第二步，循环添加数据
+        keyArray.forEach(key => {
+          this.echartData.order.series.push({
+            name: key === "wechat" ? "小程序" : key,
+            data: order.data.map(item => item[key]),
+            type: "line"
+          });
+        });
+        // 用户柱状图
+        this.echartData.user.xData = res.data.userData.map(item => item.date);
+        this.echartData.user.series.push({
+          name: "新增用户",
+          data: res.data.userData.map(item => item.new),
+          type: "bar"
+        });
+        this.echartData.user.series.push({
+          name: "活跃用户",
+          data: res.data.userData.map(item => item.active),
+          type: "bar",
+          barGap: 0
+        });
+        // 视频饼图
+        this.echartData.video.series.push({
+          data: res.data.videoData,
+          type: "pie"
+        });
+        console.log(this.echartData.order);
+      });
     }
   },
   created() {
-    this.$http.get("/home/getData").then(res => {
-      res = res.data;
-      /* 表格 */
-      this.tableData = res.data.tableData;
-      /* 折线图 */
-    });
+    this.getTableData();
   }
 };
 </script>

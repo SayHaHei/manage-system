@@ -6,6 +6,10 @@ import router from "./router";
 import store from "./store";
 /* 全局配置 */
 import "@/assets/less/reset.less";
+import http from "@/api/config";
+import "./mock";
+Vue.prototype.$http = http;
+
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 

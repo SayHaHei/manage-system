@@ -99,6 +99,8 @@ export default {
   },
   methods: {
     clickMenu(item) {
+      this.$router.push({ name: item.name });
+      /* 点击时加入已点击列表 */
       this.$store.commit("clickMenu", item);
     }
   }

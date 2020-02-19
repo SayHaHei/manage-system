@@ -10,7 +10,9 @@
           </div>
         </div>
         <div class="loginInfo">
-          <p>上次登录时间:<span class="loginTime">2020-1-1</span></p>
+          <p>
+            上次登录时间:<span class="loginTime">{{ formatDate() }}</span>
+          </p>
           <p>上次登录地点:<span class="loginLocation">北京</span></p>
         </div>
       </el-card>
@@ -28,7 +30,29 @@
       </el-card>
     </el-col>
     <el-col :span="16">
-      <div class="grid-content bg-purple-dark">sdcd</div>
+      <div class="num">
+        <el-card
+          :body-style="{ padding: '0px', display: 'flex' }"
+          v-for="item in countData"
+          :key="item.name"
+        >
+          <i
+            class="icon"
+            :class="`el-icon-${item.icon}`"
+            :style="`backgroundColor:${item.color}`"
+          ></i>
+          <div class="detail">
+            <p class="value">￥ {{ item.value }}</p>
+            <p class="name">{{ item.name }}</p>
+          </div>
+        </el-card>
+      </div>
+      <el-card shadow="hover">
+        sdfsdf
+      </el-card>
+      <div class="graph">
+        graph
+      </div>
     </el-col>
   </el-row>
 </template>
@@ -38,6 +62,44 @@ export default {
   data() {
     return {
       userImg: require("../../assets/images/user.png"),
+      countData: [
+        {
+          name: "今日支付订单",
+          value: 1234,
+          icon: "success",
+          color: "#2ec7c9"
+        },
+        {
+          name: "今日收藏订单",
+          value: 210,
+          icon: "star-on",
+          color: "#ffb980"
+        },
+        {
+          name: "今日未支付订单",
+          value: 1234,
+          icon: "s-goods",
+          color: "#5ab1ef"
+        },
+        {
+          name: "本月支付订单",
+          value: 1234,
+          icon: "success",
+          color: "#2ec7c9"
+        },
+        {
+          name: "本月收藏订单",
+          value: 210,
+          icon: "star-on",
+          color: "#ffb980"
+        },
+        {
+          name: "本月未支付订单",
+          value: 1234,
+          icon: "s-goods",
+          color: "#5ab1ef"
+        }
+      ],
       tableLabel: {
         name: "课程",
         todayBuy: "今日购买",
@@ -47,50 +109,28 @@ export default {
       tableData: []
     };
   },
+  methods: {
+    formatDate() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const formatMonth = month < 10 ? `0${month}` : month;
+      const formatDay = day < 10 ? `0${day}` : day;
+      return `${year}-${formatMonth}-${formatDay}`;
+    }
+  },
   created() {
     this.$http.get("/home/getData").then(res => {
       res = res.data;
+      /* 表格 */
       this.tableData = res.data.tableData;
+      /* 折线图 */
     });
   }
 };
 </script>
 
 <style lang="less" scoped>
-.user {
-  display: flex;
-  align-items: center;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #ccc;
-  img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-  }
-  &Info {
-    margin-left: 30px;
-    .name {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-    .access {
-      color: #999;
-    }
-  }
-}
-.loginInfo {
-  color: #999;
-  p {
-    line-height: 28px;
-    font-size: 14px;
-    span {
-      color: #999;
-      margin-left: 60px;
-    }
-  }
-}
-.saleData {
-  margin-top: 20px;
-}
+@import "~@/assets/less/home";
 </style>

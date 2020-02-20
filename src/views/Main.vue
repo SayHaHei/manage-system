@@ -39,6 +39,7 @@ export default {
 <style lang="less" scoped>
 .el-container {
   height: 100vh;
+  background-color: rgb(242, 242, 242);
 }
 .el-header {
   background-color: #333;

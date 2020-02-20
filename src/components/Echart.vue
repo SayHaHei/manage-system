@@ -1,6 +1,6 @@
 <template>
   <div>
-    echart
+    ssssssss
   </div>
 </template>
 

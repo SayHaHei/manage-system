@@ -48,7 +48,7 @@
         </el-card>
       </div>
       <el-card shadow="hover">
-        <echart></echart>
+        <echart style="height: 280px" :chartData="echartData.order"></echart>
       </el-card>
       <div class="graph">
         graph

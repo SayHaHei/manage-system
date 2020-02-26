@@ -16,7 +16,6 @@ export default {
   mutations: {
     setMenu(state, val) {
       state.menu = val;
-      console.log(val);
       Cookie.set("menu", JSON.stringify(val));
     },
     clearMenu(state) {
@@ -60,8 +59,16 @@ export default {
         state.currentMenu = val;
         let result = state.tabList.findIndex(item => item.name === val.name);
         result === -1 ? state.tabList.push(val) : "";
+        Cookie.set("tagList", JSON.stringify(state.tabList));
       } else {
         state.currentMenu = null;
+      }
+    },
+    getMenu(state) {
+      if (Cookie.get("tagList")) {
+        let tagList = JSON.parse(Cookie.get("tagList"));
+        state.tabList = tagList;
+        console.log("taglist===", state.tabList);
       }
     },
     changeCollapse(state) {
@@ -72,6 +79,7 @@ export default {
       if (result != -1) {
         state.tabList.splice(result, 1);
       }
+      Cookie.set("tagList", JSON.stringify(state.tabList));
     }
   }
 };

@@ -174,7 +174,6 @@ export default {
           data: res.data.videoData,
           type: "pie"
         });
-        console.log(this.echartData.order);
       });
     }
   },

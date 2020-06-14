@@ -28,7 +28,6 @@ export default {
       }
       let menu = JSON.parse(Cookie.get("menu"));
       state.menu = menu;
-      console.log(menu);
       let routerMenu = [
         {
           path: "/",
@@ -68,7 +67,6 @@ export default {
       if (Cookie.get("tagList")) {
         let tagList = JSON.parse(Cookie.get("tagList"));
         state.tabList = tagList;
-        console.log("taglist===", state.tabList);
       }
     },
     changeCollapse(state) {

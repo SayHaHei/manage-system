@@ -14,7 +14,6 @@ export default {
     },
     getToken(state) {
       state.token = Cookie.get("token");
-      console.log("====token", state.token);
     }
   },
   actions: {}

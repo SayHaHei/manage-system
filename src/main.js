@@ -18,11 +18,10 @@ router.beforeEach((to, from, next) => {
   //防止刷新后vuex里丢失menu
   store.commit("getMenu");
   //过滤登录页，防止死循环?
-  let token = store.state.user.token;
+  const token = store.state.user.token;
   if (!token && to.name !== "login") {
     next({ name: "login" });
   } else {
-    console.log("router===", router.options);
     next();
   }
 });

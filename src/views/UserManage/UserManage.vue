@@ -160,14 +160,12 @@ export default {
     },
     confirm() {
       if (this.operateType === "edit") {
-        this.$http.post("/api/user/edit", this.operateForm).then(res => {
-          console.log(res.data);
+        this.$http.post("/api/user/edit", this.operateForm).then(() => {
           this.isShow = false;
           this.getList();
         });
       } else {
-        this.$http.post("/api/user/add", this.operateForm).then(res => {
-          console.log(res.data);
+        this.$http.post("/api/user/add", this.operateForm).then(() => {
           this.isShow = false;
           this.getList();
         });
@@ -187,8 +185,7 @@ export default {
                 id
               }
             })
-            .then(res => {
-              console.log(res.data);
+            .then(() => {
               this.$message({
                 type: "success",
                 message: "删除成功!"
